@@ -17,6 +17,16 @@ public class MailService<T> implements Consumer<Mail<T>> {
         return mailBox;
     }
 
+    public static class MyMap<K,V> extends HashMap<K,V>{
+        @Override
+        public V get(Object key) {
+            if (super.get(key) == null) {
+                return (V) Collections.<String>emptyList();
+            }
+            return super.get(key);
+        }
+    }
+
     @Override
     public void accept(Mail<T> tMail) {
 
@@ -28,16 +38,6 @@ public class MailService<T> implements Consumer<Mail<T>> {
             List<T> value = new ArrayList<>();
             value.add(tMail.getContent());
             this.mailBox.put(tMail.getTo(), value);
-        }
-    }
-
-    public static class MyMap<K,V> extends HashMap<K,V>{
-        @Override
-        public V get(Object key) {
-            if (super.get(key) == null) {
-                return (V) Collections.<String>emptyList();
-            }
-            return super.get(key);
         }
     }
 }
