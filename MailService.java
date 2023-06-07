@@ -7,6 +7,16 @@ import java.util.function.Consumer;
 
 public class MailService<T> implements Consumer<Mail<T>> {
 
+    private static class MyMap<K,V> extends HashMap<K,V>{
+        @Override
+        public V get(Object key) {
+            if (super.get(key) == null) {
+                return (V) Collections.<String>emptyList();
+            }
+            else return super.get(key);
+        }
+    }
+    
     Map<String, List<T>> mailBox = new HashMap<>();
     public Map<String, List<T>> getMailBox() {
         return mailBox;
